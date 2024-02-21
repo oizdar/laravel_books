@@ -11,7 +11,6 @@ use OpenApi\Attributes as OA;
 )]
 class LinkResource extends JsonResource
 {
-
     #[OA\Property(property: "first", description: "First page url", type: "string", format: "url")]
     #[OA\Property(property: "last", description: "Last page url", type: "string", format: "url")]
     #[OA\Property(property: "prev", description: "Previous page url", type: "string", format: "url", nullable: true)]

@@ -6,8 +6,9 @@ use App\Http\Requests\Client\ClientIndexRequest;
 use App\Http\Resources\Client\ClientCollection;
 use App\Models\Client;
 use Illuminate\Http\Request;
-use Symfony\Component\HttpFoundation\Response;
 use OpenApi\Attributes as OA;
+use Symfony\Component\HttpFoundation\Response;
+
 class ClientController extends Controller
 {
     #[OA\Get(

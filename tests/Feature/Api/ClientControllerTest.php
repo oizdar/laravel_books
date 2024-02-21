@@ -2,7 +2,6 @@
 
 namespace Tests\Feature\Api;
 
-use App\Models\Book;
 use App\Models\Client;
 use Tests\TestCase;
 

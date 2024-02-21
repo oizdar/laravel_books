@@ -10,10 +10,10 @@ abstract class TestCase extends BaseTestCase
     use CreatesApplication;
     use RefreshDatabase;
 
-   protected function setUp(): void
-   {
-       parent::setUp();
+    protected function setUp(): void
+    {
+        parent::setUp();
 
-       $this->artisan('optimize');
-   }
+        $this->artisan('optimize');
+    }
 }
