@@ -14,6 +14,9 @@ use OpenApi\Attributes as OA;
 class BookResource extends JsonResource
 {
     #[OA\Property(property: 'title', type: 'string')]
+    #[OA\Property(property: 'author', type: 'string')]
+    #[OA\Property(property: 'publisher', type: 'string')]
+    #[OA\Property(property: 'publication_year', type: 'string')]
     #[OA\Property(property: 'created_at', type: 'string')]
     #[OA\Property(property: 'updated_at', type: 'string')]
     public function toArray($request): array

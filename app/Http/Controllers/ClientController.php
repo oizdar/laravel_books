@@ -2,19 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\Book\BookIndexRequest;
-use App\Http\Resources\Book\BookCollection;
-use App\Models\Book;
+use App\Http\Requests\Client\ClientIndexRequest;
+use App\Http\Resources\Client\ClientCollection;
+use App\Models\Client;
 use Illuminate\Http\Request;
-use OpenApi\Attributes as OA;
 use Symfony\Component\HttpFoundation\Response;
-
-class BookController extends Controller
+use OpenApi\Attributes as OA;
+class ClientController extends Controller
 {
     #[OA\Get(
-        path: '/books',
-        description: 'Get a list of books',
-        tags: ['Books'],
+        path: '/clients',
+        description: 'Get a list of Clients',
+        tags: ['Clients'],
         parameters: [
             new OA\Parameter(ref: '#/components/parameters/page'),
         ],
@@ -28,12 +27,15 @@ class BookController extends Controller
             ),
         ],
     )]
-    public function index(BookIndexRequest $request): BookCollection
+    /**
+     * Display a listing of the resource.
+     */
+    public function index(ClientIndexRequest $request): ClientCollection
     {
-        $books = Book::query()
-            ->paginate(perPage: 20, page: $request->validated('page', 1));
+        $clients = Client::query()
+            ->paginate(page: $request->validated('page', 1));
 
-        return new BookCollection($books);
+        return new ClientCollection($clients);
     }
 
     /**
@@ -47,7 +49,7 @@ class BookController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Book $book)
+    public function show(Client $client)
     {
         //
     }
@@ -55,7 +57,7 @@ class BookController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Book $book)
+    public function update(Request $request, Client $client)
     {
         //
     }
@@ -63,7 +65,7 @@ class BookController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Book $book)
+    public function destroy(Client $client)
     {
         //
     }

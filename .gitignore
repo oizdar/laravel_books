@@ -19,3 +19,4 @@ yarn-error.log
 /.vscode
 /docker/
 .php-cs-fixer.cache
+storage/api-docs

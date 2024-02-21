@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Http\Requests\Book;
+namespace App\Http\Requests\Client;
 
 use Illuminate\Foundation\Http\FormRequest;
 use OpenApi\Attributes as OA;
 
 #[OA\Schema(
-    title: 'BookIndexRequest',
-    description: 'BookIndexRequest',
+    title: 'ClientIndexRequest',
+    description: 'ClientIndexRequest',
 )]
-class BookIndexRequest extends FormRequest
+class ClientIndexRequest extends FormRequest
 {
     public function authorize(): bool
     {
