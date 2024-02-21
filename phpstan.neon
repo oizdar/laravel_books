@@ -2,20 +2,7 @@ includes:
     - ./vendor/nunomaduro/larastan/extension.neon
 
 parameters:
-
     paths:
         - app/
 
-    # Level 9 is the highest level
-    level: 2
-
-    ignoreErrors:
-        - '#Plank\\Mediable\\Facades\\ImageManipulator::defineVariant#'
-#        - '#SoapClient::__construct#'
-#        - '#Unsafe usage of new static#'
-
-    excludePaths:
-        - app/Services/Import/Deposit/*
-        - app/Jobs/Importer/*
-        - app/Logging/ImporterNoticeLogFormatter
-    checkMissingIterableValueType: false
+    level: 6
