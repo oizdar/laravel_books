@@ -26,7 +26,7 @@ jobs:
       - name: Install PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.1'
+          php-version: '8.2'
           extensions: gd, json, ldap, mbstring, mysql, pgsql, sqlite3, xml, xsl, zip, curl, soap, gmp, bcmath, imagick, intl, redis, imap
           coverage: none
 
