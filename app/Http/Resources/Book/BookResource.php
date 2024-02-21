@@ -2,10 +2,12 @@
 
 namespace App\Http\Resources\Book;
 
+use App\Http\Resources\Client\ClientResource;
 use App\Models\Book;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Carbon;
 use OpenApi\Attributes as OA;
+use function _PHPStan_cc8d35ffb\React\Promise\race;
 
 #[OA\Schema(
     title: 'BookResource',
@@ -13,24 +15,24 @@ use OpenApi\Attributes as OA;
 )]
 class BookResource extends JsonResource
 {
+    #[OA\Property(property: 'id', type: 'integer')]
     #[OA\Property(property: 'title', type: 'string')]
-    #[OA\Property(property: 'author', type: 'string')]
-    #[OA\Property(property: 'publisher', type: 'string')]
-    #[OA\Property(property: 'publication_year', type: 'string')]
-    #[OA\Property(property: 'created_at', type: 'string')]
-    #[OA\Property(property: 'updated_at', type: 'string')]
+    #[OA\Property(property: 'is_rented', type: 'boolean')]
+    #[OA\Property(property: 'rented_by', type: 'object', ref: 'Client' )]
     public function toArray($request): array
     {
         /** @var Book $book */
         $book = $this->resource;
 
         return [
+            'id' => $book->getKey(),
             'title' => $book->title,
-            'author' => $book->author,
-            'publisher' => $book->publisher,
-            'publication_year' => $book->publication_year,
-            'created_at' => Carbon::parse($book->created_at)->format('Y-m-d H:i:s'),
-            'updated_at' => Carbon::parse($book->updated_at)->format('Y-m-d H:i:s'),
+            'is_rented' => $book->relationLoaded('currentRental')
+                ? $book->isRented()
+                : null,
+            'rented_by' => $book->relationLoaded('currentRental.client')
+                ? ClientResource::make($book->currentRental?->client)
+                : null,
         ];
     }
 }

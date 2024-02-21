@@ -24,6 +24,12 @@ class BookIndexRequest extends FormRequest
                 'integer',
                 'min:1',
             ],
+            'per_page' => [
+                'nullable',
+                'integer',
+                'min:10',
+                'max:500',
+            ],
         ];
     }
 }

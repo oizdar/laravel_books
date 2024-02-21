@@ -2,18 +2,16 @@
 
 namespace Database\Seeders;
 
-use App\Models\Book;
+use App\Models\Rental;
 use Illuminate\Database\Seeder;
 
-class BookSeeder extends Seeder
+class RentalSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        Book::factory()
-            ->count(50)
-            ->create();
+        Rental::factory()->count(10)->create();
     }
 }

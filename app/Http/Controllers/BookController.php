@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Book\BookIndexRequest;
 use App\Http\Resources\Book\BookCollection;
+use App\Http\Resources\Book\BookDetailsResource;
 use App\Models\Book;
-use Illuminate\Http\Request;
 use OpenApi\Attributes as OA;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -17,6 +17,7 @@ class BookController extends Controller
         tags: ['Books'],
         parameters: [
             new OA\Parameter(ref: '#/components/parameters/page'),
+            new OA\Parameter(ref: '#/components/parameters/per_page'),
         ],
         responses: [
             new OA\Response(
@@ -31,40 +32,42 @@ class BookController extends Controller
     public function index(BookIndexRequest $request): BookCollection
     {
         $books = Book::query()
-            ->paginate(perPage: 20, page: $request->validated('page', 1));
+            ->with('currentRental.client')
+            ->paginate(
+            perPage:  $request->validated('per_page', 20),
+            page: $request->validated('page', 1));
 
         return new BookCollection($books);
     }
 
-    //    /**
-    //     * Store a newly created resource in storage.
-    //     */
-    //    public function store(Request $request)
-    //    {
-    //        //
-    //    }
-    //
-    //    /**
-    //     * Display the specified resource.
-    //     */
-    //    public function show(Book $book)
-    //    {
-    //        //
-    //    }
-    //
-    //    /**
-    //     * Update the specified resource in storage.
-    //     */
-    //    public function update(Request $request, Book $book)
-    //    {
-    //        //
-    //    }
-    //
-    //    /**
-    //     * Remove the specified resource from storage.
-    //     */
-    //    public function destroy(Book $book)
-    //    {
-    //        //
-    //    }
+    #[OA\Get(
+        path: '/books/{book}',
+        description: 'Get book details',
+        tags: ['Books'],
+        parameters: [
+            new OA\Parameter(
+                name: 'book',
+                description: 'Book ID',
+                in: 'path',
+                required: true,
+                schema: new OA\Schema(
+                    type: 'integer',
+                ),
+            ),
+        ],
+        responses: [
+            new OA\Response(
+                response: Response::HTTP_OK,
+                description: 'OK',
+                content: new OA\JsonContent(
+                    ref: '#/components/schemas/BookDetailsResource',
+                ),
+            ),
+        ],
+    )]
+    public function show(Book $book): BookDetailsResource
+    {
+        $book->load('currentRental.client');
+        return BookDetailsResource::make($book);
+    }
 }

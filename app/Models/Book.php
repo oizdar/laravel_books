@@ -3,8 +3,11 @@
 namespace App\Models;
 
 use Database\Factories\BookFactory;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
 
@@ -15,13 +18,15 @@ use Illuminate\Support\Carbon;
  * @property string $title
  * @property string $author
  * @property string $publisher
- * @property int $release_year
+ * @property int $publication_year
  * @property Carbon $created_at
  * @property Carbon $updated_at
  * @property Carbon $deleted_at
  *
  * Relationships
  * -------------------
+ * @property Rental $currentRental
+ * @property Collection<Rental> $rentals
  *
  * Methods
  * -------------------
@@ -44,4 +49,20 @@ class Book extends Model
         'updated_at',
         'deleted_at',
     ];
+
+    public function currentRental(): HasOne
+    {
+        return $this->hasOne(Rental::class)
+            ->whereNull('returned_at');
+    }
+
+    public function rentals(): HasMany
+    {
+        return $this->hasMany(Rental::class);
+    }
+
+    public function isRented(): bool
+    {
+        return $this->currentRental !== null;
+    }
 }

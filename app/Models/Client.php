@@ -5,6 +5,7 @@ namespace App\Models;
 use Database\Factories\ClientFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
 
@@ -34,4 +35,15 @@ class Client extends Model
         'first_name',
         'last_name',
     ];
+
+    protected array $dates = [
+        'created_at',
+        'updated_at',
+        'deleted_at',
+    ];
+
+    public function rentals(): HasMany
+    {
+        return $this->hasMany(Rental::class);
+    }
 }

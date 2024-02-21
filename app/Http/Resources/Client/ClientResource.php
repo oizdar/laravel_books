@@ -22,6 +22,7 @@ class ClientResource extends JsonResource
         $client = $this->resource;
 
         return [
+            'id' => $client->getKey(),
             'firstName' => $client->first_name,
             'lastName' => $client->last_name,
         ];
