@@ -45,7 +45,7 @@ class ClientControllerTest extends TestCase
                     $data->where('id', $client->getKey())
                         ->where('first_name', $client->first_name)
                         ->where('last_name', $client->last_name)
-                        ->has('current_rentals')
+                        ->has('rented_books')
                         ->where('created_at', $client->created_at->toDateTimeString())
                         ->where('updated_at', $client->updated_at->toDateTimeString())
                 )
