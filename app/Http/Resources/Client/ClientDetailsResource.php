@@ -3,9 +3,11 @@
 namespace App\Http\Resources\Client;
 
 use App\Http\Resources\Book\BookCollection;
+use App\Http\Resources\Book\RentedBooksCollection;
 use App\Models\Client;
 use Illuminate\Http\Resources\Json\JsonResource;
 use OpenApi\Attributes as OA;
+use function _PHPStan_cc8d35ffb\React\Promise\race;
 
 #[OA\Schema(
     title: 'ClientDetailsResource',
@@ -13,9 +15,10 @@ use OpenApi\Attributes as OA;
 )]
 class ClientDetailsResource extends JsonResource
 {
-    #[OA\Property(property: 'firstName', type: 'string')]
-    #[OA\Property(property: 'lastName', type: 'string')]
-    #[OA\Property(property: 'currentRentals', type: 'string')]
+    #[OA\Property(property: 'id', type: 'integer')]
+    #[OA\Property(property: 'first_name', type: 'string')]
+    #[OA\Property(property: 'last_name', type: 'string')]
+    #[OA\Property(property: 'rented_books', type: 'object')]
     #[OA\Property(property: 'created_at', type: 'string')]
     #[OA\Property(property: 'updated_at', type: 'string')]
     public function toArray($request): array
@@ -27,9 +30,7 @@ class ClientDetailsResource extends JsonResource
             'id' => $client->getKey(),
             'first_name' => $client->first_name,
             'last_name' => $client->last_name,
-            'current_rentals' => $client->relationLoaded('currentRentals.books')
-                ? BookCollection::make($client->currentRentals->pluck('books'))
-                : [],
+            'rented_books' => RentedBooksCollection::make($client->currentRentals->pluck('book')),
             'created_at' => $client->created_at->toDateTimeString(),
             'updated_at' => $client->updated_at->toDateTimeString(),
         ];

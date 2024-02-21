@@ -28,8 +28,8 @@ class BookResource extends JsonResource
             'is_rented' => $book->relationLoaded('currentRental')
                 ? $book->isRented()
                 : null,
-            'rented_by' => $book->relationLoaded('currentRental.client')
-                ? ClientResource::make($book->currentRental?->client)
+            'rented_by' => $book->relationLoaded('currentRental') && $book->currentRental?->relationLoaded('client')
+                ? ClientResource::make($book->currentRental->client)
                 : null,
         ];
     }

@@ -7,7 +7,6 @@ use App\Http\Requests\Client\ClientIndexRequest;
 use App\Http\Requests\Client\ClientStoreRequest;
 use App\Http\Resources\Client\ClientCollection;
 use App\Http\Resources\Client\ClientDetailsResource;
-use App\Http\Resources\Client\ClientResource;
 use App\Models\Client;
 use App\Services\ClientService;
 use OpenApi\Attributes as OA;
@@ -92,17 +91,17 @@ class ClientController extends Controller
             ),
         ],
     )]
-    public function store(ClientStoreRequest $request, ClientService $clientService): ClientResource
+    public function store(ClientStoreRequest $request, ClientService $clientService): ClientDetailsResource
     {
         $client = $clientService->store(ClientData::from($request->validated()));
 
-        return ClientResource::make($client);
+        return ClientDetailsResource::make($client);
     }
 
 
     #[OA\Delete(
         path: '/clients/{client}',
-        description: 'Create Client',
+        description: 'Delete Client',
         tags: ['Clients'],
         parameters: [
             new OA\Parameter(
@@ -122,7 +121,7 @@ class ClientController extends Controller
             ),
         ],
     )]
-    public function destroy(Client $client, ClientService $clientService)
+    public function destroy(Client $client, ClientService $clientService): Response
     {
         $clientService->destroy($client);
 

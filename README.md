@@ -1,66 +1,56 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Artisan Laravel Books
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
 
-## About Laravel
+## API Stworzone z w wykorzystaniem swaggera
+szczegółowy opis endpointów pod adresem `/api/documentation`
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+w formie json dostępne wyjątkowo w katalogu `storage/api-docs/api-docs.json` 
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Końcówki API
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+`GET /books` - lista książek
 
-## Learning Laravel
+`GET /books/{book}` - szczegóły książki
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+`GET /clients` - lista klientów
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+`GET /clients/{client}` - szczegóły klienta
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+`POST /clients` - dodawanie klienta
 
-## Laravel Sponsors
+`DELETE /clients/{client}` - usuwanie klienta
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+`POST /rentals` - Wypożyczenie książki
 
-### Premium Partners
+`PATCH /rentals/{rental}/return` - Oddanie książki
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
 
-## Contributing
+## Treść zadania
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Zadanie: Proste API do wypożyczania książek
+Celem tego zadania jest zaprojektowanie prostego API do wypożyczania książek. Nie ma konieczności implementowania funkcjonalności związanych z logowaniem czy rejestracją użytkowników.
+W bazie danych znajduje się 60 książek, których dane można wygenerować za pomocą narzędzia Artisan. Dane te mogą być losowe (Lorem Ipsum).
+Wykorzystaj wszystkie znane Ci protokoły HTTP.
 
-## Code of Conduct
+Endpoints do oprogramowania:
+1. Listowanie książek z paginacją (20 książek na stronę):
+    * Dane zawierają nazwę książki, status wypożyczenia oraz informację o osobie, która wypożyczyła książkę (jeśli wypożyczona).
+    * Wyszukiwarka książek po frazie: nazwa książki, autorze oraz imieniu i nazwisku klienta.
+2. Szczegóły książki:
+    * Zawiera informacje o nazwie, autorze, roku wydania, wydawnictwie, statusie wypożyczenia oraz osobie, która wypożyczyła książkę (jeśli wypożyczona).
+3. Lista klientów:
+    * Zawiera imię i nazwisko klientów.
+4. Szczegóły klienta:
+    * Zawiera imię i nazwisko klienta oraz listę wypożyczonych książek (bez paginacji).
+5. Dodawanie i usuwanie klienta:
+    * Pozwala na dodawanie i usuwanie klientów. Dane klienta zawierają imię i nazwisko.
+6. Wypożyczanie i oddawanie książek. 
+Technologie:
+* Framework: Laravel
+* Implementacja jako REST API
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+W pliku readme.md opisać końcówki API.
 
-## Security Vulnerabilities
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
 
-## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).

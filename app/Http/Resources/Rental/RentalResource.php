@@ -2,6 +2,9 @@
 
 namespace App\Http\Resources\Rental;
 
+use App\Http\Resources\Book\BookResource;
+use App\Http\Resources\Book\RentedBookResource;
+use App\Http\Resources\Client\ClientResource;
 use App\Models\Rental;
 use Illuminate\Http\Resources\Json\JsonResource;
 use OpenApi\Attributes as OA;
@@ -14,7 +17,7 @@ class RentalResource extends JsonResource
 {
     #[OA\Property(property: 'id', type: 'integer')]
     #[OA\Property(property: 'client', ref: '#/components/schemas/ClientResource', type: 'object')]
-    #[OA\Property(property: 'book', ref: '#/components/schemas/BookResource', type: ' object')]
+    #[OA\Property(property: 'book', ref: '#/components/schemas/RentedBookResource', type: ' object')]
     public function toArray($request): array
     {
         /** @var Rental $rental */
@@ -22,8 +25,8 @@ class RentalResource extends JsonResource
 
         return [
             'id' => $rental->getKey(),
-            'client' => $rental->relationLoaded('client') ? $rental->client : null,
-            'book' => $rental->relationLoaded('book') ? $rental->book : null,
+            'client' => $rental->relationLoaded('client') ? ClientResource::make($rental->client) : null,
+            'book' => $rental->relationLoaded('book') ? RentedBookResource::make($rental->book) : null,
             'returned_at' => $rental->returned_at,
             'rented_at' => $rental->created_at,
         ];

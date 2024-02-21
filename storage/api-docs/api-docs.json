@@ -1,0 +1,599 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "API documentation ",
+        "description": "Laravel books api",
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://127.0.0.1:8000/api",
+            "description": "Localhost server"
+        }
+    ],
+    "paths": {
+        "/books": {
+            "get": {
+                "tags": [
+                    "Books"
+                ],
+                "description": "Get a list of books",
+                "operationId": "28b9632495ac5f6f66b2e52001d510e6",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/page"
+                    },
+                    {
+                        "$ref": "#/components/parameters/per_page"
+                    },
+                    {
+                        "name": "title",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "author",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "client_first_name",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "client_last_name",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/BookCollection"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/books/{book}": {
+            "get": {
+                "tags": [
+                    "Books"
+                ],
+                "description": "Get book details",
+                "operationId": "fa3cb0e436990c742c4f38ab106b9136",
+                "parameters": [
+                    {
+                        "name": "book",
+                        "in": "path",
+                        "description": "Book ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/BookDetailsResource"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/clients": {
+            "get": {
+                "tags": [
+                    "Clients"
+                ],
+                "summary": "Display a listing of the resource.",
+                "description": "Get a list of Clients",
+                "operationId": "af1f3794367a5e843bf15e3a9033d911",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/page"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ClientCollection"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Clients"
+                ],
+                "description": "Create Client",
+                "operationId": "15981a5da120d8b4ea1b91b05a35622b",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ClientStoreRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "CREATED",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ClientDetailsResource"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/clients/{client}": {
+            "get": {
+                "tags": [
+                    "Clients"
+                ],
+                "description": "Get Client details",
+                "operationId": "8fc07341eb8ece62ad4fdda3a30c7b25",
+                "parameters": [
+                    {
+                        "name": "client",
+                        "in": "path",
+                        "description": "Client ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ClientResource"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Clients"
+                ],
+                "description": "Delete Client",
+                "operationId": "9102c26412072310db7ca015461a16cb",
+                "parameters": [
+                    {
+                        "name": "client",
+                        "in": "path",
+                        "description": "Client ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "NO_CONTENT"
+                    }
+                }
+            }
+        },
+        "/rentals": {
+            "post": {
+                "tags": [
+                    "Rentals"
+                ],
+                "description": "Create Client",
+                "operationId": "40394fe10e293c02112f075c41ccb537",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/RentalStoreRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "CREATED",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/RentalResource"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/rentals/{rental}/return": {
+            "patch": {
+                "tags": [
+                    "Rentals"
+                ],
+                "description": "Create Client",
+                "operationId": "3863b3414331a046f12a640b66d88312",
+                "parameters": [
+                    {
+                        "name": "rental",
+                        "in": "path",
+                        "description": "Rental ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/RentalResource"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "BookIndexRequest": {
+                "title": "BookIndexRequest",
+                "description": "BookIndexRequest"
+            },
+            "ClientIndexRequest": {
+                "title": "ClientIndexRequest",
+                "description": "ClientIndexRequest"
+            },
+            "ClientStoreRequest": {
+                "title": "ClientStoreRequest",
+                "description": "ClientStoreRequest",
+                "properties": {
+                    "first_name": {
+                        "type": "string"
+                    },
+                    "last_name": {
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "RentalReturnRequest": {
+                "title": "RentalStoreRequest",
+                "description": "RentalStoreRequest"
+            },
+            "RentalStoreRequest": {
+                "title": "RentalStoreRequest",
+                "description": "RentalStoreRequest",
+                "properties": {
+                    "book_id": {
+                        "type": "integer"
+                    },
+                    "client_id": {
+                        "type": "integer"
+                    }
+                },
+                "type": "object"
+            },
+            "BookCollection": {
+                "title": "BookCollection",
+                "description": "BookCollection",
+                "properties": {
+                    "data": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/BookResource"
+                        }
+                    },
+                    "links": {
+                        "$ref": "#/components/schemas/LinkResource"
+                    },
+                    "meta": {
+                        "$ref": "#/components/schemas/MetaResource"
+                    }
+                },
+                "type": "object"
+            },
+            "BookDetailsResource": {
+                "title": "BookDetailsResource",
+                "description": "BookDetailsResource",
+                "properties": {
+                    "title": {
+                        "type": "string"
+                    },
+                    "author": {
+                        "type": "string"
+                    },
+                    "publisher": {
+                        "type": "string"
+                    },
+                    "publication_year": {
+                        "type": "integer"
+                    },
+                    "is_rented": {
+                        "type": "boolean"
+                    },
+                    "rented_by": {
+                        "oneOf": [
+                            {
+                                "$ref": "#/components/schemas/ClientResource"
+                            }
+                        ],
+                        "nullable": true,
+                        "type": "object"
+                    },
+                    "created_at": {
+                        "type": "string"
+                    },
+                    "updated_at": {
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "BookResource": {
+                "title": "BookResource",
+                "description": "BookResource",
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "title": {
+                        "type": "string"
+                    },
+                    "is_rented": {
+                        "type": "boolean"
+                    },
+                    "rented_by": {
+                        "oneOf": [
+                            {
+                                "$ref": "#/components/schemas/ClientResource"
+                            }
+                        ],
+                        "nullable": true,
+                        "type": "object"
+                    }
+                },
+                "type": "object"
+            },
+            "RentedBookResource": {
+                "title": "RentedBookResource",
+                "description": "RentedBookResource",
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "title": {
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "RentedBooksCollection": {
+                "title": "RentedBooksCollection",
+                "description": "RentedBooksCollection",
+                "properties": {
+                    "data": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/BookResource"
+                        }
+                    },
+                    "links": {
+                        "$ref": "#/components/schemas/LinkResource"
+                    },
+                    "meta": {
+                        "$ref": "#/components/schemas/MetaResource"
+                    }
+                },
+                "type": "object"
+            },
+            "ClientCollection": {
+                "title": "ClientCollection",
+                "description": "ClientCollection",
+                "properties": {
+                    "data": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ClientResource"
+                        }
+                    },
+                    "links": {
+                        "$ref": "#/components/schemas/LinkResource"
+                    },
+                    "meta": {
+                        "$ref": "#/components/schemas/MetaResource"
+                    }
+                },
+                "type": "object"
+            },
+            "ClientDetailsResource": {
+                "title": "ClientDetailsResource",
+                "description": "ClientDetailsResource",
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "first_name": {
+                        "type": "string"
+                    },
+                    "last_name": {
+                        "type": "string"
+                    },
+                    "rented_books": {
+                        "type": "object"
+                    },
+                    "created_at": {
+                        "type": "string"
+                    },
+                    "updated_at": {
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "ClientResource": {
+                "title": "ClientResource",
+                "description": "ClientResource",
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "first_name": {
+                        "type": "string"
+                    },
+                    "last_name": {
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "LinkResource": {
+                "title": "LinkResource",
+                "description": "LinkResource",
+                "properties": {
+                    "first": {
+                        "description": "First page url",
+                        "type": "string",
+                        "format": "url"
+                    },
+                    "last": {
+                        "description": "Last page url",
+                        "type": "string",
+                        "format": "url"
+                    },
+                    "prev": {
+                        "description": "Previous page url",
+                        "type": "string",
+                        "format": "url",
+                        "nullable": true
+                    },
+                    "next": {
+                        "description": "Next page url",
+                        "type": "string",
+                        "format": "url",
+                        "nullable": true
+                    }
+                },
+                "type": "object"
+            },
+            "MetaResource": {
+                "title": "MetaResource",
+                "description": "MetaResource",
+                "properties": {
+                    "current_page": {
+                        "description": "Current page",
+                        "type": "integer"
+                    },
+                    "from": {
+                        "description": "From element",
+                        "type": "integer",
+                        "nullable": true
+                    },
+                    "last_page": {
+                        "description": "Last page",
+                        "type": "integer"
+                    },
+                    "path": {
+                        "description": "Url path",
+                        "type": "string",
+                        "format": "url"
+                    },
+                    "per_page": {
+                        "description": "Items per page",
+                        "type": "integer"
+                    },
+                    "to": {
+                        "description": "To element",
+                        "type": "integer",
+                        "nullable": true
+                    },
+                    "total": {
+                        "description": "Total items",
+                        "type": "integer"
+                    }
+                },
+                "type": "object"
+            },
+            "RentalResource": {
+                "title": "ClientResource",
+                "description": "ClientResource",
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "client": {
+                        "$ref": "#/components/schemas/ClientResource"
+                    },
+                    "book": {
+                        "$ref": "#/components/schemas/RentedBookResource"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "parameters": {
+            "page": {
+                "name": "page",
+                "in": "query",
+                "description": "Current page",
+                "required": false,
+                "schema": {
+                    "type": "integer"
+                }
+            },
+            "per_page": {
+                "name": "per_page",
+                "in": "query",
+                "description": "Elements per page",
+                "required": false,
+                "schema": {
+                    "type": "integer"
+                }
+            }
+        }
+    }
+}
