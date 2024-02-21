@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\DTO\Book\BookSearchData;
 use App\Http\Requests\Book\BookIndexRequest;
 use App\Http\Resources\Book\BookCollection;
 use App\Http\Resources\Book\BookDetailsResource;
 use App\Models\Book;
+use App\Services\BookService;
 use OpenApi\Attributes as OA;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -29,10 +31,10 @@ class BookController extends Controller
             ),
         ],
     )]
-    public function index(BookIndexRequest $request): BookCollection
+    public function index(BookIndexRequest $request, BookService $bookService): BookCollection
     {
-        $books = Book::query()
-            ->with('currentRental.client')
+        $query = $bookService->queryBySearchData(BookSearchData::fromBookIndexRequest($request));
+        $books = $query->with('currentRental.client')
             ->paginate(
                 perPage:  $request->validated('per_page', 20),
                 page: $request->validated('page', 1)

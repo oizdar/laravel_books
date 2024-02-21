@@ -30,6 +30,31 @@ class BookIndexRequest extends FormRequest
                 'min:10',
                 'max:500',
             ],
+            'title' => [
+                'nullable',
+                'string',
+                'min:3',
+                'max:255',
+            ],
+            'author' => [
+                'nullable',
+                'string',
+                'min:3',
+                'max:255',
+            ],
+            'client_first_name' => [
+                'nullable',
+                'string',
+                'min:3',
+                'max:255',
+            ],
+            'client_last_name' => [
+                'nullable',
+                'string',
+                'min:3',
+                'max:255',
+            ],
+
         ];
     }
 }

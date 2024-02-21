@@ -4,26 +4,30 @@ namespace Tests\Feature\Api;
 
 use App\Models\Client;
 use Carbon\Carbon;
+use Database\Seeders\ClientSeeder;
 use Tests\TestCase;
 
 class ClientControllerTest extends TestCase
 {
+    protected bool $seed = true;
     protected function setUp(): void
     {
         parent::setUp();
 
-        Client::factory()->count(20)->create();
+        $this->seed(ClientSeeder::class);
     }
 
     public function testUserCanSeeBooksListPaginatedBy20()
     {
+        $count = Client::query()->count();
+
         $this->getJson(route('api.clients.index'))
             ->assertOK()
             ->assertJsonCount(15, 'data');
 
         $this->getJson(route('api.clients.index', ['page' => 2]))
             ->assertOK()
-            ->assertJsonCount(5, 'data');
+            ->assertJsonCount($count - 15, 'data');
     }
 
     public function testUserCanSeeClientDetails()

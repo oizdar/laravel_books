@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\QueryBuilders\BookQueryBuilder;
 use Database\Factories\BookFactory;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -30,12 +31,18 @@ use Illuminate\Support\Carbon;
  *
  * Methods
  * -------------------
+ * @method static BookQueryBuilder query()
  * @method static BookFactory factory($count = null, $state = [])
  */
 class Book extends Model
 {
     use HasFactory;
     use SoftDeletes;
+
+    public function newEloquentBuilder($query): BookQueryBuilder
+    {
+        return new BookQueryBuilder($query);
+    }
 
     protected $fillable = [
         'title',

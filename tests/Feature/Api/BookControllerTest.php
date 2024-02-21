@@ -3,6 +3,8 @@
 namespace Tests\Feature\Api;
 
 use App\Models\Book;
+use App\Models\Client;
+use App\Models\Rental;
 use Tests\TestCase;
 
 class BookControllerTest extends TestCase
@@ -56,6 +58,73 @@ class BookControllerTest extends TestCase
                     ->etc()
                 )
             );
+    }
+
+    public function testFilteredList()
+    {
+        $book1 = Book::factory()->create([
+            'title' => 'Testowy tytuł 1',
+            'author' => 'Testowy autor 1',
+        ]);
+
+        $book2 = Book::factory()->create([
+            'title' => 'Testowy tytuł 2',
+            'author' => 'Testowy autor 1',
+        ]);
+
+        $book3 = Book::factory()->create([
+            'title' => 'Testowy tytuł 3',
+            'author' => 'Testowy autor 2',
+        ]);
+
+        $client1 = Client::factory()->create([
+            'first_name' => 'TestoweImię1',
+            'last_name' => 'TestoweNazwisko',
+        ]);
+
+        $client2 = Client::factory()->create([
+            'first_name' => 'TestoweImię2',
+            'last_name' => 'TestoweNazwisko',
+        ]);
+
+        Rental::factory()->create([
+            'client_id' => $client1->getKey(),
+            'book_id' => $book1->getKey(),
+        ]);
+
+        Rental::factory()->create([
+            'client_id' => $client2->getKey(),
+            'book_id' => $book2->getKey(),
+        ]);
+
+
+        $this->getJson(route('api.books.index', ['title' => 'Testowy tytuł 1']))
+            ->assertOK()
+            ->assertJsonCount(1, 'data');
+
+        $this->getJson(route('api.books.index', ['title' => 'Testowy tytuł 2']))
+            ->assertOK()
+            ->assertJsonCount(1, 'data');
+
+        $this->getJson(route('api.books.index', ['title' => 'Testowy']))
+            ->assertOK()
+            ->assertJsonCount(3, 'data');
+
+        $this->getJson(route('api.books.index', ['author' => 'Testowy autor 1']))
+            ->assertOK()
+            ->assertJsonCount(2, 'data');
+
+        $this->getJson(route('api.books.index', ['client_first_name' => 'TestoweImię1']))
+            ->assertOK()
+            ->assertJsonCount(1, 'data');
+
+        $this->getJson(route('api.books.index', ['client_first_name' => 'TestoweImię2']))
+            ->assertOK()
+            ->assertJsonCount(1, 'data');
+
+        $this->getJson(route('api.books.index', ['client_last_name' => 'TestoweNazwisko']))
+            ->assertOK()
+            ->assertJsonCount(2, 'data');
     }
 
 }
