@@ -19,8 +19,9 @@ class BookFactory extends Factory
         return [
             'title' => $this->faker->text(10),
             'author' => $this->faker->firstName . ' ' . $this->faker->lastName,
-            'publish_year' => $this->faker->year,
             'publisher' => $this->faker->company,
+            'publication_year' => $this->faker->year,
+
         ];
     }
 }
