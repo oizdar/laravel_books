@@ -12,10 +12,10 @@ use OpenApi\Attributes as OA;
 )]
 class ClientResource extends JsonResource
 {
+
+    #[OA\Property(property: 'id', type: 'integer')]
     #[OA\Property(property: 'firstName', type: 'string')]
     #[OA\Property(property: 'lastName', type: 'string')]
-    #[OA\Property(property: 'created_at', type: 'string')]
-    #[OA\Property(property: 'updated_at', type: 'string')]
     public function toArray($request): array
     {
         /** @var Client $client */

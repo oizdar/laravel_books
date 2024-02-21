@@ -21,7 +21,6 @@ class BookFactory extends Factory
             'author' => $this->faker->firstName . ' ' . $this->faker->lastName,
             'publisher' => $this->faker->company,
             'publication_year' => $this->faker->year,
-
         ];
     }
 }

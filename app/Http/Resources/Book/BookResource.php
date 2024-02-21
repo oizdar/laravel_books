@@ -5,9 +5,7 @@ namespace App\Http\Resources\Book;
 use App\Http\Resources\Client\ClientResource;
 use App\Models\Book;
 use Illuminate\Http\Resources\Json\JsonResource;
-use Illuminate\Support\Carbon;
 use OpenApi\Attributes as OA;
-use function _PHPStan_cc8d35ffb\React\Promise\race;
 
 #[OA\Schema(
     title: 'BookResource',
@@ -18,7 +16,7 @@ class BookResource extends JsonResource
     #[OA\Property(property: 'id', type: 'integer')]
     #[OA\Property(property: 'title', type: 'string')]
     #[OA\Property(property: 'is_rented', type: 'boolean')]
-    #[OA\Property(property: 'rented_by', type: 'object', ref: 'Client' )]
+    #[OA\Property(property: 'rented_by', ref: '#/components/schemas/ClientResource', type: 'object', nullable: true)]
     public function toArray($request): array
     {
         /** @var Book $book */

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Database\Factories\ClientFactory;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -21,6 +22,9 @@ use Illuminate\Support\Carbon;
  *
  * Relationships
  * -------------------
+ * @property Collection<Rental> $rentals
+ * @property Collection<Rental> $currentRentals
+ *
  *
  * Methods
  * -------------------
@@ -45,5 +49,10 @@ class Client extends Model
     public function rentals(): HasMany
     {
         return $this->hasMany(Rental::class);
+    }
+
+    public function currentRentals()
+    {
+        return $this->rentals()->whereNull('returned_at');
     }
 }

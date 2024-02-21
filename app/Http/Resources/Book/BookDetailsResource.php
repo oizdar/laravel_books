@@ -18,6 +18,8 @@ class BookDetailsResource extends JsonResource
     #[OA\Property(property: 'author', type: 'string')]
     #[OA\Property(property: 'publisher', type: 'string')]
     #[OA\Property(property: 'publication_year', type: 'string')]
+    #[OA\Property(property: 'is_rented', type: 'boolean')]
+    #[OA\Property(property: 'rented_by', ref: '#/components/schemas/ClientResource', type: 'object', nullable: true)]
     #[OA\Property(property: 'created_at', type: 'string')]
     #[OA\Property(property: 'updated_at', type: 'string')]
     public function toArray($request): array
@@ -31,9 +33,9 @@ class BookDetailsResource extends JsonResource
             'publisher' => $book->publisher,
             'publication_year' => $book->publication_year,
             'is_rented' => $book->relationLoaded('currentRental') ? $book->currentRental !== null : null,
-            'rented_by' => $book->relationLoaded('currentRental') ? ClientResource::make($book->currentRental->client) : null,
-            'created_at' => Carbon::parse($book->created_at)->format('Y-m-d H:i:s'),
-            'updated_at' => Carbon::parse($book->updated_at)->format('Y-m-d H:i:s'),
+            'rented_by' => $book->relationLoaded('currentRental') ? ClientResource::make($book->currentRental?->client) : null,
+            'created_at' => Carbon::parse($book->created_at)->toDateTimeString(),
+            'updated_at' => Carbon::parse($book->updated_at)->toDateTimeString(),
         ];
     }
 }

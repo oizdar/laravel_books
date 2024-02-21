@@ -25,7 +25,7 @@ use Illuminate\Support\Carbon;
  *
  * Relationships
  * -------------------
- * @property Rental $currentRental
+ * @property Rental|null $currentRental
  * @property Collection<Rental> $rentals
  *
  * Methods
@@ -41,7 +41,11 @@ class Book extends Model
         'title',
         'author',
         'publisher',
-        'release_year',
+        'publication_year',
+    ];
+
+    protected $casts = [
+        'publication_year' => 'integer',
     ];
 
     protected array $dates = [

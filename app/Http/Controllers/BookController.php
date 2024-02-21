@@ -37,7 +37,7 @@ class BookController extends Controller
             perPage:  $request->validated('per_page', 20),
             page: $request->validated('page', 1));
 
-        return new BookCollection($books);
+        return BookCollection::make($books);
     }
 
     #[OA\Get(
@@ -68,6 +68,6 @@ class BookController extends Controller
     public function show(Book $book): BookDetailsResource
     {
         $book->load('currentRental.client');
-        return BookDetailsResource::make($book);
+        return new BookDetailsResource($book);
     }
 }
