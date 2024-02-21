@@ -2,7 +2,6 @@
 
 namespace App\Http\Resources\Book;
 
-use App\Http\Resources\Client\ClientResource;
 use App\Models\Book;
 use Illuminate\Http\Resources\Json\JsonResource;
 use OpenApi\Attributes as OA;

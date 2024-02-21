@@ -2,7 +2,6 @@
 
 namespace App\Http\Resources\Rental;
 
-use App\Http\Resources\Book\BookResource;
 use App\Http\Resources\Book\RentedBookResource;
 use App\Http\Resources\Client\ClientResource;
 use App\Models\Rental;

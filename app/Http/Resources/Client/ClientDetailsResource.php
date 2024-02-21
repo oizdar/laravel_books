@@ -2,12 +2,10 @@
 
 namespace App\Http\Resources\Client;
 
-use App\Http\Resources\Book\BookCollection;
 use App\Http\Resources\Book\RentedBooksCollection;
 use App\Models\Client;
 use Illuminate\Http\Resources\Json\JsonResource;
 use OpenApi\Attributes as OA;
-use function _PHPStan_cc8d35ffb\React\Promise\race;
 
 #[OA\Schema(
     title: 'ClientDetailsResource',
