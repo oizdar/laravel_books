@@ -24,6 +24,7 @@ class ClientDetailsResource extends JsonResource
         $client = $this->resource;
 
         return [
+            'id' => $client->getKey(),
             'first_name' => $client->first_name,
             'last_name' => $client->last_name,
             'current_rentals' => $client->relationLoaded('currentRentals.books')
