@@ -18,11 +18,11 @@ class BookQueryBuilder extends Builder
 
     public function ofClientFirstName(string $firstName): self
     {
-        return $this->whereHas('currentRental.client', fn(Builder $query) => $query->where('first_name', $firstName));
+        return $this->whereHas('currentRental.client', fn (Builder $query) => $query->where('first_name', $firstName));
     }
 
     public function ofClientLastName(string $firstName): self
     {
-        return $this->whereHas('currentRental.client', fn(Builder $query) => $query->where('last_name', $firstName));
+        return $this->whereHas('currentRental.client', fn (Builder $query) => $query->where('last_name', $firstName));
     }
 }
