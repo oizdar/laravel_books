@@ -8,7 +8,6 @@ use Throwable;
 
 class ClientService
 {
-
     public function store(ClientData $client): Client
     {
         /** @var Client $client */

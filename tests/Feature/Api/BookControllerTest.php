@@ -16,7 +16,7 @@ class BookControllerTest extends TestCase
 
     public function testUserCanSeeBooksListPaginatedBy20()
     {
-        $this->get(route('api.books.index'))
+        $this->getJson(route('api.books.index'))
             ->assertOK()
             ->assertJsonCount(20, 'data')
             ->assertJsonStructure([
@@ -30,7 +30,7 @@ class BookControllerTest extends TestCase
                 ],
             ]);
 
-        $this->get(route('api.books.index', ['page' => 2]))
+        $this->getJson(route('api.books.index', ['page' => 2]))
             ->assertOK()
             ->assertJsonCount(10, 'data');
     }
@@ -39,7 +39,7 @@ class BookControllerTest extends TestCase
     {
         $book = Book::factory()->create();
 
-        $this->get(route('api.books.show', $book->getKey()))
+        $this->getJson(route('api.books.show', $book->getKey()))
             ->assertOK()
             ->assertJson(
                 fn ($json) =>
