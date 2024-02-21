@@ -34,8 +34,9 @@ class BookController extends Controller
         $books = Book::query()
             ->with('currentRental.client')
             ->paginate(
-            perPage:  $request->validated('per_page', 20),
-            page: $request->validated('page', 1));
+                perPage:  $request->validated('per_page', 20),
+                page: $request->validated('page', 1)
+            );
 
         return BookCollection::make($books);
     }
@@ -68,6 +69,7 @@ class BookController extends Controller
     public function show(Book $book): BookDetailsResource
     {
         $book->load('currentRental.client');
+
         return new BookDetailsResource($book);
     }
 }

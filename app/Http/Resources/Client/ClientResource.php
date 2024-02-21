@@ -12,7 +12,6 @@ use OpenApi\Attributes as OA;
 )]
 class ClientResource extends JsonResource
 {
-
     #[OA\Property(property: 'id', type: 'integer')]
     #[OA\Property(property: 'firstName', type: 'string')]
     #[OA\Property(property: 'lastName', type: 'string')]

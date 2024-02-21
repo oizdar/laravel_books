@@ -39,14 +39,14 @@ class ClientController extends Controller
         return ClientCollection::make($clients);
     }
 
-//    /**
-//     * Store a newly created resource in storage.
-//     */
-//    public function store(Request $request)
-//    {
-//        //
-//    }
-//
+    //    /**
+    //     * Store a newly created resource in storage.
+    //     */
+    //    public function store(Request $request)
+    //    {
+    //        //
+    //    }
+    //
     #[OA\Get(
         path: '/clients/{client}',
         description: 'Get Client details',
@@ -76,20 +76,20 @@ class ClientController extends Controller
     {
         return ClientDetailsResource::make($client);
     }
-//
-//    /**
-//     * Update the specified resource in storage.
-//     */
-//    public function update(Request $request, Client $client)
-//    {
-//        //
-//    }
-//
-//    /**
-//     * Remove the specified resource from storage.
-//     */
-//    public function destroy(Client $client)
-//    {
-//        //
-//    }
+    //
+    //    /**
+    //     * Update the specified resource in storage.
+    //     */
+    //    public function update(Request $request, Client $client)
+    //    {
+    //        //
+    //    }
+    //
+    //    /**
+    //     * Remove the specified resource from storage.
+    //     */
+    //    public function destroy(Client $client)
+    //    {
+    //        //
+    //    }
 }

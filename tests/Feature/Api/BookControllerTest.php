@@ -3,8 +3,6 @@
 namespace Tests\Feature\Api;
 
 use App\Models\Book;
-use App\Models\Rental;
-use Illuminate\Testing\Fluent\AssertableJson;
 use Tests\TestCase;
 
 class BookControllerTest extends TestCase
@@ -43,8 +41,11 @@ class BookControllerTest extends TestCase
 
         $this->get(route('api.books.show', $book->getKey()))
             ->assertOK()
-            ->assertJson(fn($json) =>
-                $json->has('data', fn($data) =>
+            ->assertJson(
+                fn ($json) =>
+                $json->has(
+                    'data',
+                    fn ($data) =>
                     $data->where('title', $book->title)
                     ->where('author', $book->author)
                     ->where('publisher', $book->publisher)
