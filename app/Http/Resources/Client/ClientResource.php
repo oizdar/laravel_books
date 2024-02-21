@@ -18,12 +18,12 @@ class ClientResource extends JsonResource
     #[OA\Property(property: 'updated_at', type: 'string')]
     public function toArray($request): array
     {
-        /** @var Client $book */
+        /** @var Client $client */
         $client = $this->resource;
 
         return [
-            'firstName' => $client->firstName,
-            'lastName' => $client->lastName,
+            'firstName' => $client->first_name,
+            'lastName' => $client->last_name,
         ];
     }
 }
